@@ -58,7 +58,7 @@ int main() {
     day = rand() % 365; // program assumes 2023, a non-leap-year
 
     //int dayOfTheWeek = findWeekday(2, day); // assuming 2023, a year with doomsdays on tuesday (twos-day)
-
+    int ballWeiner;
     printf("%d/%d", findMonth(116), findMonthDay(findMonth(116), 116));
 }
 
