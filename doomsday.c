@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 // variables
+static int ballweiner;
 
 // functions
 int findMonth(int day) {
@@ -46,19 +48,29 @@ int findMonthDay(int month, int day) {
     else if (month == 11) {return day - 303;} // Nov
     else {return day - 333;}                  // Dec
 }
-/*
+
 int findWeekday(int anchorday, int day) {
-    
+    bool isLeapYear = false;
+
+    if (isLeapYear) {
+        return 0;
+    }
+    else {
+        return (anchorday + abs(day - 59)) % 7;
+    }
 }
-*/
+
 int main() {
-    int day;
+    int day, month, monthDay, dayOfTheWeek;
 
     srand(time(NULL));
     day = rand() % 365; // program assumes 2023, a non-leap-year
 
-    //int dayOfTheWeek = findWeekday(2, day); // assuming 2023, a year with doomsdays on tuesday (twos-day)
-    int ballWeiner;
-    printf("%d/%d", findMonth(116), findMonthDay(findMonth(116), 116));
-}
+    month = findMonth(day);
 
+    monthDay = findMonthDay(month, day);
+
+    dayOfTheWeek = findWeekday(2, day); // assuming 2023, a year with doomsdays on tuesday (twos-day)
+    
+    printf("%d = %d/%d, %d\n", day, month, monthDay, dayOfTheWeek);
+}
