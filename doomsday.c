@@ -2,11 +2,24 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
+#include <string.h>
 
 // variables
 bool isLeapYear;
 
+bool checkAnswer(char input[], char weekDay[]) {
+    if (strcmp(weekDay, "0") && (strcmp(input, "0") || strcmp(input, "Sunday"))) {return false;}
+    else if (strcmp(weekDay, "1") && (strcmp(input, "1") || strcmp(input, "Monday"))) {return false;}
+    else if (strcmp(weekDay, "2") && (strcmp(input, "2") || strcmp(input, "Tuesday"))) {return false;}
+    else if (strcmp(weekDay, "3") && (strcmp(input, "3") || strcmp(input, "Wednesday"))) {return false;}
+    else if (strcmp(weekDay, "4") && (strcmp(input, "4") || strcmp(input, "Thursday"))) {return false;}
+    else if (strcmp(weekDay, "5") && (strcmp(input, "5") || strcmp(input, "Friday"))) {return false;}
+    else if (strcmp(weekDay, "6") && (strcmp(input, "6") || strcmp(input, "Saturday"))) {return false;}
+    else {return true;}
+}
+
 // functions
+
 int findMonth(int day) {
     if (day < 1 || day > 365) {
         printf("ERROR: findMonth input invalid: %d\n", day); 
@@ -60,15 +73,20 @@ int findWeekday(int anchorday, int day) {
 
 int main() {
     int day, month, monthDay, dayOfTheWeek;
+    char weekDayString[8];
 
     srand(time(NULL));
     day = (rand() % 365) + 1; // program assumes 2023, a non-leap-year
-
     month = findMonth(day);
-
     monthDay = findMonthDay(month, day);
+    dayOfTheWeek = findWeekday(2, day);
 
-    dayOfTheWeek = findWeekday(2, day); // assuming 2023, a year with doomsdays on tuesday (twos-day)
-    
-    printf("%d = %d/%d, %d\n", day, month, monthDay, dayOfTheWeek);
+    bool wrongAnswer = true;
+    char input[32];
+    sprintf(weekDayString, "%d", dayOfTheWeek);
+    while (wrongAnswer) {
+        printf("What day of the week was %d/%d? ", month, monthDay);
+        scanf("%s", input);
+        wrongAnswer = checkAnswer(input, weekDayString);
+    }
 }
