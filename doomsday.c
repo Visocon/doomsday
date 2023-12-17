@@ -8,13 +8,13 @@
 bool isLeapYear;
 
 bool checkAnswer(char input[], char weekDay[]) {
-    if (strcmp(weekDay, "0") && (strcmp(input, "0") || strcmp(input, "Sunday"))) {return false;}
-    else if (strcmp(weekDay, "1") && (strcmp(input, "1") || strcmp(input, "Monday"))) {return false;}
-    else if (strcmp(weekDay, "2") && (strcmp(input, "2") || strcmp(input, "Tuesday"))) {return false;}
-    else if (strcmp(weekDay, "3") && (strcmp(input, "3") || strcmp(input, "Wednesday"))) {return false;}
-    else if (strcmp(weekDay, "4") && (strcmp(input, "4") || strcmp(input, "Thursday"))) {return false;}
-    else if (strcmp(weekDay, "5") && (strcmp(input, "5") || strcmp(input, "Friday"))) {return false;}
-    else if (strcmp(weekDay, "6") && (strcmp(input, "6") || strcmp(input, "Saturday"))) {return false;}
+    if (strcmp(weekDay, "0") == 0 && (strcmp(input, "0") == 0 || strcmp(input, "Sunday") == 0)) {return false;}
+    else if (strcmp(weekDay, "1") == 0 && (strcmp(input, "1") == 0 || strcmp(input, "Monday") == 0)) {return false;}
+    else if (strcmp(weekDay, "2") == 0 && (strcmp(input, "2") == 0 || strcmp(input, "Tuesday") == 0)) {return false;}
+    else if (strcmp(weekDay, "3") == 0 && (strcmp(input, "3") == 0 || strcmp(input, "Wednesday") == 0 )) {return false;}
+    else if (strcmp(weekDay, "4") == 0 && (strcmp(input, "4") == 0 || strcmp(input, "Thursday") == 0 )) {return false;}
+    else if (strcmp(weekDay, "5") == 0 && (strcmp(input, "5") == 0 || strcmp(input, "Friday") == 0 )) {return false;}
+    else if (strcmp(weekDay, "6") == 0 && (strcmp(input, "6") == 0 || strcmp(input, "Saturday") == 0 )) {return false;}
     else {return true;}
 }
 
