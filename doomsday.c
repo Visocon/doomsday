@@ -15,6 +15,7 @@ bool checkAnswer(char input[], char weekDay[]) {
     else if (strcmp(weekDay, "4") == 0 && (strcmp(input, "4") == 0 || strcmp(input, "Thursday") == 0 )) {return false;}
     else if (strcmp(weekDay, "5") == 0 && (strcmp(input, "5") == 0 || strcmp(input, "Friday") == 0 )) {return false;}
     else if (strcmp(weekDay, "6") == 0 && (strcmp(input, "6") == 0 || strcmp(input, "Saturday") == 0 )) {return false;}
+    else if (strcmp(input, "bypass") == 0) {exit(0);}
     else {return true;}
 }
 
@@ -67,7 +68,7 @@ int findWeekday(int anchorday, int day) {
         return 0;
     }
     else {
-        return ((anchorday + abs(day - 59)) % 7);
+        return ((anchorday + (day - 59)) % 7 + 7) % 7;
     }
 }
 
@@ -84,9 +85,11 @@ int main() {
     bool wrongAnswer = true;
     char input[32];
     sprintf(weekDayString, "%d", dayOfTheWeek);
+    printf("\n************\n");
     while (wrongAnswer) {
         printf("What day of the week was %d/%d? ", month, monthDay);
         scanf("%s", input);
         wrongAnswer = checkAnswer(input, weekDayString);
     }
+    printf("Correct!\n************\n");
 }
