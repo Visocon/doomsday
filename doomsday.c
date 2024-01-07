@@ -23,9 +23,9 @@ bool checkAnswer(char input[], char weekDay[]) {
 }
 
 int findAnchorDay(int year) {
-    double dFromAnchorYear = year - 1600;
+    double dFromAnchorYear = year - 1984;
     int daysAdded = dFromAnchorYear + floor(dFromAnchorYear/4);
-    return (2 + daysAdded) % 7; // Because 1600 was a Tuesday (Twos-day)
+    return (3 + daysAdded) % 7; // Because 1984 was a Wednesday (Trebles-day)
 }
 
 int findMonth(int day) {
