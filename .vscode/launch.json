@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/aiden/Documents/vscodium/doomsday",
-      "program": "/home/aiden/Documents/vscodium/doomsday/build/Debug/outDebug",
+      "cwd": "/home/aiden/Documents/Vscodium/doomsday",
+      "program": "/home/aiden/Documents/Vscodium/doomsday/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

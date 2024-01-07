@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -6,6 +7,8 @@
 
 // variables
 bool isLeapYear;
+
+// functions
 
 bool checkAnswer(char input[], char weekDay[]) {
     if (strcmp(weekDay, "0") == 0 && (strcmp(input, "0") == 0 || strcmp(input, "Sunday") == 0)) {return false;}
@@ -19,53 +22,77 @@ bool checkAnswer(char input[], char weekDay[]) {
     else {return true;}
 }
 
-// functions
+int findAnchorDay(int year) {
+    double dFromAnchorYear = year - 1600;
+    int daysAdded = dFromAnchorYear + floor(dFromAnchorYear/4);
+    return (2 + daysAdded) % 7; // Because 1600 was a Tuesday (Twos-day)
+}
 
 int findMonth(int day) {
-    if (day < 1 || day > 365) {
-        printf("ERROR: findMonth input invalid: %d\n", day); 
-        exit(1);
+    if (isLeapYear) {
+        if (day <= 31) {return 1;}        // Jan
+        else if (day <= 60) {return 2;}   // Feb
+        else if (day <= 91) {return 3;}   // Mar
+        else if (day <= 121) {return 4;}  // Apr
+        else if (day <= 152) {return 5;}  // May
+        else if (day <= 182) {return 6;}  // Jun
+        else if (day <= 213) {return 7;}  // Jul
+        else if (day <= 244) {return 8;}  // Aug
+        else if (day <= 274) {return 9;}  // Sep
+        else if (day <= 305) {return 10;} // Oct
+        else if (day <= 335) {return 11;} // Nov
+        else {return 12;}                 // Dec
     }
-    else if (day <= 31) {return 1;}   // Jan
-    else if (day <= 59) {return 2;}   // Feb
-    else if (day <= 90) {return 3;}   // Mar
-    else if (day <= 120) {return 4;}  // Apr
-    else if (day <= 151) {return 5;}  // May
-    else if (day <= 181) {return 6;}  // Jun
-    else if (day <= 212) {return 7;}  // Jul
-    else if (day <= 243) {return 8;}  // Aug
-    else if (day <= 273) {return 9;}  // Sep
-    else if (day <= 304) {return 10;} // Oct
-    else if (day <= 334) {return 11;} // Nov
-    else {return 12;}                 // Dec
+    else {
+        if (day <= 31) {return 1;}        // Jan
+        else if (day <= 59) {return 2;}   // Feb
+        else if (day <= 90) {return 3;}   // Mar
+        else if (day <= 120) {return 4;}  // Apr
+        else if (day <= 151) {return 5;}  // May
+        else if (day <= 181) {return 6;}  // Jun
+        else if (day <= 212) {return 7;}  // Jul
+        else if (day <= 243) {return 8;}  // Aug
+        else if (day <= 273) {return 9;}  // Sep
+        else if (day <= 304) {return 10;} // Oct
+        else if (day <= 334) {return 11;} // Nov
+        else {return 12;}                 // Dec
+    }
 }
 
 int findMonthDay(int month, int day) {
-    if (month < 1 || month > 12) {
-        printf("ERROR: findMonthDay 'month' input invalid: %d\n", month);
-        exit(1);
+    if (isLeapYear) {
+        if (month == 1) {return day;}             // Jan
+        else if (month == 2) {return day - 31;}   // Feb
+        else if (month == 3) {return day - 60;}   // Mar
+        else if (month == 4) {return day - 91;}   // Apr
+        else if (month == 5) {return day - 121;}  // May
+        else if (month == 6) {return day - 152;}  // Jun
+        else if (month == 7) {return day - 182;}  // Jul
+        else if (month == 8) {return day - 213;}  // Aug
+        else if (month == 9) {return day - 244;}  // Sep
+        else if (month == 10) {return day - 274;} // Oct
+        else if (month == 11) {return day - 305;} // Nov
+        else {return day - 335;}                  // Dec
     }
-    if (day < 1 || day > 365) {
-        printf("ERROR: findMonthDay 'day' input invalid: %d\n", month);
-        exit(1);
+    else {
+        if (month == 1) {return day;}             // Jan
+        else if (month == 2) {return day - 31;}   // Feb
+        else if (month == 3) {return day - 59;}   // Mar
+        else if (month == 4) {return day - 90;}   // Apr
+        else if (month == 5) {return day - 120;}  // May
+        else if (month == 6) {return day - 151;}  // Jun
+        else if (month == 7) {return day - 181;}  // Jul
+        else if (month == 8) {return day - 212;}  // Aug
+        else if (month == 9) {return day - 243;}  // Sep
+        else if (month == 10) {return day - 273;} // Oct
+        else if (month == 11) {return day - 304;} // Nov
+        else {return day - 334;}                  // Dec
     }
-    if (month == 1) {return day;}         // Jan
-    else if (month == 2) {return day - 31;}   // Feb
-    else if (month == 3) {return day - 59;}   // Mar
-    else if (month == 4) {return day - 90;}   // Apr
-    else if (month == 5) {return day - 120;}  // May
-    else if (month == 6) {return day - 151;}  // Jun
-    else if (month == 7) {return day - 181;}  // Jul
-    else if (month == 8) {return day - 212;}  // Aug
-    else if (month == 9) {return day - 243;}  // Sep
-    else if (month == 10) {return day - 273;} // Oct
-    else if (month == 11) {return day - 304;} // Nov
-    else {return day - 334;}                  // Dec
 }
 
 int findWeekday(int anchorday, int day) {
     if (isLeapYear) {
-        return 0;
+        return ((anchorday + (day - 60)) % 7 + 7) % 7;
     }
     else {
         return ((anchorday + (day - 59)) % 7 + 7) % 7;
@@ -73,21 +100,29 @@ int findWeekday(int anchorday, int day) {
 }
 
 int main() {
-    int day, month, monthDay, dayOfTheWeek;
+    int year, day, month, monthDay, dayOfTheWeek;
     char weekDayString[8];
 
     srand(time(NULL));
-    day = (rand() % 365) + 1; // program assumes 2023, a non-leap-year
+    year = (rand() % 40) + 1985;
+    if (year % 4 == 0) {
+        isLeapYear = true;
+        day = (rand() % 366) + 1;
+    }
+    else {
+        day = (rand() % 365) + 1; 
+    }
+    
     month = findMonth(day);
     monthDay = findMonthDay(month, day);
-    dayOfTheWeek = findWeekday(2, day);
+    dayOfTheWeek = findWeekday(findAnchorDay(year), day);
 
     bool wrongAnswer = true;
     char input[32];
     sprintf(weekDayString, "%d", dayOfTheWeek);
     printf("\n************\n");
     while (wrongAnswer) {
-        printf("What day of the week was %d/%d? ", month, monthDay);
+        printf("What day of the week is %d/%d/%d? ", month, monthDay, year);
         scanf("%s", input);
         wrongAnswer = checkAnswer(input, weekDayString);
     }
